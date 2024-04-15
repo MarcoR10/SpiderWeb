@@ -3,6 +3,7 @@ comment0.target=SpiderWebContest
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ SpiderWebContest\ here.\r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=strands\ favorite\ bridgeInfo
 comment1.target=int[]\ solve(int,\ int,\ int[][])
+comment1.text=\r\n\ M\u00E9todo\ para\ resolver\ el\ problema\ de\ encontrar\ el\ camino\ m\u00E1s\ corto\ entre\ las\ hebras\ de\ un\ puente.\r\n\r\n\ @param\ strands\ \ \ \ \ N\u00FAmero\ total\ de\ hebras\ en\ el\ puente\r\n\ @param\ favorite\ \ \ \ Hebra\ favorita\r\n\ @param\ bridgeInfo\ \ Informaci\u00F3n\ de\ las\ distancias\ y\ conexiones\ de\ las\ hebras\ del\ puente\r\n\ @return\ Un\ array\ con\ las\ distancias\ m\u00EDnimas\ desde\ la\ hebra\ favorita\ a\ cada\ hebra\ del\ puente\r\n
 comment2.params=strands\ favorite\ bridges\ strand
 comment2.target=void\ simulate(int,\ int,\ int[][],\ int)
 comment2.text=\r\n\ Realiza\ una\ simulacion\ del\ problema\ propuesto.\r\n\ @param\ strands\ \ El\ n\u00FAmero\ de\ cuerdas.\r\n\ @param\ favorite\ La\ cuerda\ favorita\ de\ Charlotte.\r\n\ @param\ bridges\ \ Los\ puentes\ entre\ las\ cuerdas.\r\n

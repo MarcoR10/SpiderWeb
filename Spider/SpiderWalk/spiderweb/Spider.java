@@ -28,7 +28,7 @@ public class Spider {
         ojode = new Circle();
         strand = Strand;
         isVisible = true;
-        center = false;
+        center = true;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         draw(xPosition, yPosition);
@@ -63,7 +63,7 @@ public class Spider {
      * Método que simula el movimiento de la araña.
      */
     public void spiderWalk(boolean advance, Point[] Camino) {
-        if (advance && center == true) {
+        if (advance && center) {
             center = false;
             if (Camino.length >= 10) {  // Verificar la longitud del array Camino
                 for (int i = 0; i < 10; i++) {
@@ -73,7 +73,7 @@ public class Spider {
             } else {
                 System.out.println("El array Camino debe tener al menos 10 elementos.");
             }
-        } else if (!advance && center == false) {
+        } else if (!advance && !center) {
             center = true;
             if (Camino.length >= 10) {  // Verificar la longitud del array Camino
                 for (int j = 9; 0 <= j; j--) {

@@ -9,6 +9,14 @@ import java.util.*;
  */
 public class SpiderWebContest{
     
+    
+    /**
+     * Constructor para la clase Bridge.
+     *
+     * @param strand   Identificador de la hebra del puente
+     * @param distance Distancia de la hebra del puente
+     */
+    
     private static class Bridge implements Comparable<Bridge> {
         int strand;
         int distance;
@@ -21,6 +29,17 @@ public class SpiderWebContest{
             return this.distance - other.distance;
         }
     }
+    
+    
+    
+    /**
+     * Método para resolver el problema de encontrar el camino más corto entre las hebras de un puente.
+     *
+     * @param strands     Número total de hebras en el puente
+     * @param favorite    Hebra favorita
+     * @param bridgeInfo  Información de las distancias y conexiones de las hebras del puente
+     * @return Un array con las distancias mínimas desde la hebra favorita a cada hebra del puente
+     */
 
     public int[] solve(int strands, int favorite, int[][] bridgeInfo) {
         List<Bridge> bridges = new ArrayList<>();
@@ -56,5 +75,6 @@ public class SpiderWebContest{
         SpiderWeb simulacion = new SpiderWeb(strands,favorite ,bridges);
         simulacion.makeVisible();
         simulacion.spiderSit(strand);
+        simulacion.spiderWalk(true);
     }
 }
