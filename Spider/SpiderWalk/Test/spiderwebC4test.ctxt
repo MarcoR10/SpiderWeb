@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=spiderwebC4test
+comment0.text=\r\n\ The\ test\ class\ spiderwebC4test.\r\n\r\n\ @author\ \ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=void\ testAddSpotValidInput()
+comment2.params=
+comment2.target=void\ testAddSpotInvalidStrandIndex()
+comment3.params=
+comment3.target=void\ testDelSpotValidInput()
+comment4.params=
+comment4.target=void\ testDelSpotNonexistentColor()
+comment5.params=
+comment5.target=void\ testReachableSpotsNoSpotsAvailable()
+comment6.params=
+comment6.target=void\ testReachableSpotsWithAvailableSpots()
+numComments=7

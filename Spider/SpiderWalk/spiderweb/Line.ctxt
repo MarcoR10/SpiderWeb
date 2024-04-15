@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Line
+comment1.params=x1\ y1\ x2\ y2\ color
+comment1.target=Line(int,\ int,\ int,\ int,\ java.lang.String)
+comment2.params=
+comment2.target=void\ makeVisible()
+comment3.params=
+comment3.target=void\ makeInvisible()
+comment4.params=
+comment4.target=void\ draw()
+comment5.params=
+comment5.target=void\ erase()
+comment6.params=color
+comment6.target=void\ setColor(java.lang.String)
+comment7.params=
+comment7.target=java.awt.Point\ getInitial()
+comment8.params=
+comment8.target=java.awt.Point\ getFinal()
+numComments=9

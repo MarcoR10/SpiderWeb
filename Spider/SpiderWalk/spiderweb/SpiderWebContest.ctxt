@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=SpiderWebContest
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ SpiderWebContest\ here.\r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=strands\ favorite\ bridgeInfo
+comment1.target=int[]\ solve(int,\ int,\ int[][])
+comment2.params=strands\ favorite\ bridges\ strand
+comment2.target=void\ simulate(int,\ int,\ int[][],\ int)
+comment2.text=\r\n\ Realiza\ una\ simulacion\ del\ problema\ propuesto.\r\n\ @param\ strands\ \ El\ n\u00FAmero\ de\ cuerdas.\r\n\ @param\ favorite\ La\ cuerda\ favorita\ de\ Charlotte.\r\n\ @param\ bridges\ \ Los\ puentes\ entre\ las\ cuerdas.\r\n
+numComments=3

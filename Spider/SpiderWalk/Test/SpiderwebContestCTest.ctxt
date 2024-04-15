@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=SpiderwebContestCTest
+comment1.params=
+comment1.target=void\ testSpiderwebConstructorWithBridges()
+comment2.params=
+comment2.target=void\ testAddSpot()
+comment3.params=
+comment3.target=void\ testSpiderSit()
+comment4.params=
+comment4.target=void\ testAddBridge()
+comment5.params=
+comment5.target=void\ testRelocateBridge()
+comment6.params=
+comment6.target=void\ testDelBridge()
+numComments=7

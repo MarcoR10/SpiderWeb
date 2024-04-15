@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Fixed
+comment0.text=\r\n\r\n
+comment1.params=centerX\ centerY\ x\ y\ color\ Stand
+comment1.target=Fixed(int,\ int,\ int,\ int,\ java.lang.String,\ int)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ fixed\r\n
+comment2.params=
+comment2.target=void\ makeInvisible()
+numComments=3
