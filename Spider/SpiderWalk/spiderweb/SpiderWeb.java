@@ -44,7 +44,7 @@ public class SpiderWeb{
      * @param favorite Índice del hilo favorito.
      * @param bridges  Matriz bidimensional que contiene la información de los puentes.
      */
-    public SpiderWeb(int strands,int favorite ,int[][] bridges) {
+    public SpiderWeb(int strands,int favorite ,int[][] bridges) throws SpiderException {
         this.strand = strands;
         radio = 300;
         this.favorite = favorite;
@@ -54,54 +54,8 @@ public class SpiderWeb{
             addBridge(supportedColors[i], bridges[i][0]*20, bridges[i][1]);
         }
     }
-
-    /**
-     * Agrega un puente a la tela de araña.
-     * 
-     * @param color      Color del puente.
-     * @param distance   Distancia desde el primer hilo.
-     * @param firstStand Índice del primer hilo.
-     */
-    public void addBridge(String color, int distance, int firstStand) {
-        if (distance < radio && firstStand < strand) {
-            Point a = getPointAtDistance(firstStand - 1, distance);
-            Point b = getPointAtDistance(firstStand, distance);
-            Bridge bridg = new Bridge(a.x, a.y, b.x, b.y, color, firstStand);
-            bridg.makeVisible();
-            bridge.put(color, bridg);
-        } else if (distance < radio && firstStand == strand) {
-            Point a = getPointAtDistance(firstStand - 1, distance);
-            Point b = getPointAtDistance(0, distance);
-            Bridge bridg = new Bridge(a.x, a.y, b.x, b.y, color, firstStand);
-            bridg.makeVisible();
-            bridge.put(color, bridg);
-        }
-    }
     
-    /**
-     * Agrega un puente a la tela de araña.
-     * 
-     * @param color      Color del puente.
-     * @param distance   Distancia desde el primer hilo.
-     * @param firstStand Índice del primer hilo.
-     */
-    public void addBridge(String type,String color, int distance, int firstStand) {
-        if (distance < radio && firstStand < strand) {
-            Point a = getPointAtDistance(firstStand - 1, distance);
-            Point b = getPointAtDistance(firstStand, distance);
-            Bridge bridg = new Bridge(a.x, a.y, b.x, b.y, color, firstStand);
-            bridg.makeVisible();
-            bridge.put(color, bridg);
-        } else if (distance < radio && firstStand == strand) {
-            Point a = getPointAtDistance(firstStand - 1, distance);
-            Point b = getPointAtDistance(0, distance);
-            Bridge bridg = new Bridge(a.x, a.y, b.x, b.y, color, firstStand);
-            bridg.makeVisible();
-            bridge.put(color, bridg);
-        }
-    }
-    
-    /**
+     /**
      * Aumenta el número de hebra en 1 y redibuja el objeto.
      * Hace invisible al objeto actual antes de redibujarlo.
      */
@@ -124,12 +78,69 @@ public class SpiderWeb{
     }
     
     /**
+     * Agrega un puente a la tela de araña.
+     * 
+     * @param color      Color del puente.
+     * @param distance   Distancia desde el primer hilo.
+     * @param firstStand Índice del primer hilo.
+     */
+    public void addBridge(String color, int distance, int firstStand) throws SpiderException{
+        if (distance < radio && firstStand < strand) {
+            Point a = getPointAtDistance(firstStand - 1, distance);
+            Point b = getPointAtDistance(firstStand, distance);
+            Normal bridg = new Normal(a.x, a.y, b.x, b.y, color, firstStand);
+            bridg.makeVisible();
+            bridge.put(color, bridg);
+        } else if (distance < radio && firstStand == strand) {
+            Point a = getPointAtDistance(firstStand - 1, distance);
+            Point b = getPointAtDistance(0, distance);
+            Normal bridg = new Normal(a.x, a.y, b.x, b.y, color, firstStand);
+            bridg.makeVisible();
+            bridge.put(color, bridg);
+        }
+    }
+    
+    /**
+     * Agrega un puente a la tela de araña.
+     * 
+     * @param type       Tipo de puente (normal, walk, fixed, mobile).
+     * @param color      Color del puente.
+     * @param distance   Distancia desde el primer hilo.
+     * @param firstStand Índice del primer hilo.
+     */
+    public void addBridge(String type, String color, int distance, int firstStand) throws SpiderException {
+        if (distance < radio && firstStand <= strand) {
+            Point a = getPointAtDistance(firstStand - 1, distance);
+            Point b = (firstStand == strand) ? getPointAtDistance(0, distance) : getPointAtDistance(firstStand, distance);
+            Bridge bridge;
+            switch (type.toLowerCase()) {
+                case "normal":
+                    bridge = new Normal(a.x, a.y, b.x, b.y, color, firstStand);
+                    break;
+                case "weak":
+                    bridge = new Weak(a.x, a.y, b.x, b.y, color, firstStand);
+                    break;
+                case "fixed":
+                    bridge = new Fixed(a.x, a.y, b.x, b.y, color, firstStand);
+                    break;
+                case "mobile":
+                    bridge = new Mobile(a.x, a.y, b.x, b.y, color, firstStand);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Tipo de puente desconocido: " + type);
+            }
+            bridge.makeVisible();
+            this.bridge.put(color, bridge);
+        }
+    }
+    
+    /**
      * Mueve un puente existente en la tela de araña.
      * 
      * @param color    Color del puente a mover.
      * @param distance Nueva distancia desde el primer hilo.
      */
-    public void relocateBridge(String color, int distance) {
+    public void relocateBridge(String color, int distance) throws SpiderException{
         Bridge Obridge = bridge.get(color);
         Obridge.makeInvisible();
         int Stand = Obridge.getStand();
@@ -143,9 +154,13 @@ public class SpiderWeb{
      * @param color Color del puente a eliminar.
      */
     public void delBridge(String color) {
-        Bridge Bridge = bridge.get(color);
-        Bridge.makeInvisible();
-        bridge.remove(color);
+        Bridge bridgeremove = bridge.get(color);
+        if(!(bridgeremove instanceof Fixed)){
+            bridgeremove.makeInvisible();
+            bridge.remove(color);
+        }else{
+            bridgeremove.makeInvisible();
+        }
     }
 
     /**
@@ -263,34 +278,6 @@ public class SpiderWeb{
     }
 
     /**
-     * Método privado que obtiene la posición de un punto de descanso en la tela de araña.
-     * 
-     * @return Un objeto Point que representa las coordenadas (x, y) del punto de descanso. Si el punto no se encuentra, devuelve null.
-     */
-    private Point getSpotPosition(String spot) {
-        for (Line line : totalStrand) {
-            if (line.color.equals(spot)) {
-                return line.getInitial();
-            }
-        }
-        return null;
-    }
-    
-    /**
-     * Obtiene la posición actual de la araña en la tela de araña.
-     * 
-     * @return Un objeto Point que representa las coordenadas (x, y) de la posición actual de la araña.
-     */
-    public Point getCurrentPosition() {
-        Line currentLine = totalStrand.get(strand - 1);
-        Point coordenadasIniciales = currentLine.getInitial();
-        if (araña != null) {
-            return new Point((int)coordenadasIniciales.getX(), (int)coordenadasIniciales.getY());
-        } 
-        return null;
-    }
-
-    /**
      * Método que devuelve los puentes no utilizados en la tela de araña.
      * 
      * Este método calcula y devuelve los puentes que aún no han sido utilizados por la araña en su recorrido. 
@@ -336,7 +323,7 @@ public class SpiderWeb{
     /**
      * Hace visible la tela de araña, los puentes y la araña.
      */
-    public void makeVisible() {
+    public void makeVisible() throws spiderweb.SpiderException {
         for (int i = 0; i < totalStrand.size(); i++) {
             Line elemento = totalStrand.get(i);
             elemento.makeVisible();
@@ -381,6 +368,34 @@ public class SpiderWeb{
      */
     public void finish() {
         System.exit(0);
+    }
+    
+     /**
+     * Método privado que obtiene la posición de un punto de descanso en la tela de araña.
+     * 
+     * @return Un objeto Point que representa las coordenadas (x, y) del punto de descanso. Si el punto no se encuentra, devuelve null.
+     */
+    private Point getSpotPosition(String spot) {
+        for (Line line : totalStrand) {
+            if (line.color.equals(spot)) {
+                return line.getInitial();
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Obtiene la posición actual de la araña en la tela de araña.
+     * 
+     * @return Un objeto Point que representa las coordenadas (x, y) de la posición actual de la araña.
+     */
+    public Point getCurrentPosition() {
+        Line currentLine = totalStrand.get(strand - 1);
+        Point coordenadasIniciales = currentLine.getInitial();
+        if (araña != null) {
+            return new Point((int)coordenadasIniciales.getX(), (int)coordenadasIniciales.getY());
+        } 
+        return null;
     }
     
     /**

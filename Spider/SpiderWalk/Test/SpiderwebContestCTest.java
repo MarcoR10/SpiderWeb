@@ -6,59 +6,41 @@ import spiderweb.*;
 public class SpiderwebContestCTest {
 
     @Test
-    public void testSpiderwebConstructorWithBridges() {
+    public void testSolveWithNoBridges() {
         // Arrange
         int strands = 5;
-        int[][] bridgesData = {{50, 2}, {60, 3}};
+        int favorite = 3;
+        int[][] bridgeInfo = new int[0][0];
+        SpiderWebContest solver = new SpiderWebContest();
         // Act
-        SpiderWeb spiderWeb = new SpiderWeb(strands, 1, bridgesData);
+        int[] result = solver.solve(strands, favorite, bridgeInfo);
         // Assert
-        assertNotNull(spiderWeb);
+        assertArrayEquals(new int[]{0, 1, 1, 0, 1}, result);
     }
 
     @Test
-    public void testAddSpot() {
+    public void testSolveWithBridges() {
         // Arrange
-        SpiderWeb spiderWeb = new SpiderWeb(5, 300);
+        int strands = 5;
+        int favorite = 3;
+        int[][] bridgeInfo = {{50, 2}, {60, 3}};
+        SpiderWebContest solver = new SpiderWebContest();
         // Act
-        spiderWeb.addSpot("red", 3);
+        int[] result = solver.solve(strands, favorite, bridgeInfo);
         // Assert
-        assertEquals("red", spiderWeb.spots()[2]);
+        assertArrayEquals(new int[]{2, 1, 0, 1, 2}, result);
     }
 
     @Test
-    public void testSpiderSit() {
+    public void testSimulate() {
         // Arrange
-        SpiderWeb spiderWeb = new SpiderWeb(5, 300);
-        // Act
-        spiderWeb.spiderSit(3);
+        int strands = 5;
+        int favorite = 3;
+        int[][] bridges = {{50, 2}, {60, 3}};
+        int strand = 2;
+        SpiderWebContest simulator = new SpiderWebContest();
+        // Act & Assert
+        simulator.simulate(strands, favorite, bridges, strand);
     }
 
-     @Test
-    public void testAddBridge() {
-        // Arrange
-        SpiderWeb spiderWeb = new SpiderWeb(5, 300);
-        // Act
-        spiderWeb.addBridge("blue", 100, 2);        
-        // Assert
-        assertEquals("blue", spiderWeb.bridges()[0]); // Comprueba si el puente se agregó correctamente
-    }
-
-    @Test
-    public void testRelocateBridge() {
-        // Arrange
-        SpiderWeb spiderWeb = new SpiderWeb(5, 300);
-        spiderWeb.addBridge("red", 100, 2);
-        // Act
-        spiderWeb.relocateBridge("red", 150);
-    }
-
-    @Test
-    public void testDelBridge() {
-        // Arrange
-        SpiderWeb spiderWeb = new SpiderWeb(5, 300);
-        spiderWeb.addBridge("blue", 100, 2);
-        // Act
-        spiderWeb.delBridge("blue");
-    }
 }
